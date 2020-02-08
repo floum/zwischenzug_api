@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+User.create(username: 'floum', password: 'secret')
+
+puzzles = YAML.load_file('db/puzzles.yml')
+
+puzzles["puzzles"].each do |puzzle|
+  challenges = puzzle["challenges"].reduce([]) do |challenges, challenge|
+    position = Position.create(fen: challenge["fen"])
+    ply = Ply.create(san: challenge["ply"], value: "best", position: position)
+    challenges << Challenge.create(position: position)
+  end
+  Puzzle.create(challenge_ids: challenges.map(&:id))
+end

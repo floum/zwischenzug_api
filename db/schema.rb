@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_07_222751) do
+ActiveRecord::Schema.define(version: 2020_02_08_001216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "challenges", force: :cascade do |t|
+    t.bigint "position_id", null: false
+    t.string "last_move"
+    t.string "continuation", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["position_id"], name: "index_challenges_on_position_id"
+  end
+
+  create_table "plys", force: :cascade do |t|
+    t.string "san"
+    t.integer "position_id"
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "fen"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "puzzles", force: :cascade do |t|
+    t.integer "challenge_ids", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -23,4 +52,5 @@ ActiveRecord::Schema.define(version: 2020_02_07_222751) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "challenges", "positions"
 end
