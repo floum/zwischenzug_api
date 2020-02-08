@@ -3,7 +3,6 @@ class CreatePlys < ActiveRecord::Migration[6.0]
     create_table :plys do |t|
       t.string :san
       t.integer :position_id
-      t.string :value
 
       t.timestamps
     end

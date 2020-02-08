@@ -26,8 +26,14 @@ class UsersController < ApplicationController
         status: :unprocessable_entity
     end
   end
+
   def destroy
     @user.destroy
+  end
+
+   def practice
+    p @current_user
+    render json: Puzzle.first, status: :ok
   end
 
   private

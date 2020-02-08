@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2020_02_08_001216) do
   create_table "plys", force: :cascade do |t|
     t.string "san"
     t.integer "position_id"
-    t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
