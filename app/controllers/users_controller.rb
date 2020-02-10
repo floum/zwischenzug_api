@@ -1,5 +1,17 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: :create
+  before_action :authorize_request, except: [:create, :authenticate]
+
+  def authenticate
+    @user = User.find_by_username(params[:username])
+    if @user&.authenticate(params[:password])
+      token = JsonWebToken.encode(user_id: @user.id)
+      time = Time.now + 24.hours.to_i
+      render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
+                     username: @user.username }, status: :ok
+    else
+      render json: { error: 'unauthorized' }, status: :unauthorized
+    end
+  end
 
   def index
     @users = User.all
@@ -31,9 +43,8 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
-   def practice
-    p @current_user
-    render json: Puzzle.first, status: :ok
+  def practice
+    @puzzle = Puzzle.first
   end
 
   private

@@ -17,11 +17,13 @@ ActiveRecord::Schema.define(version: 2020_02_08_001216) do
 
   create_table "challenges", force: :cascade do |t|
     t.bigint "position_id", null: false
+    t.bigint "puzzle_id", null: false
     t.string "last_move"
     t.string "continuation", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["position_id"], name: "index_challenges_on_position_id"
+    t.index ["puzzle_id"], name: "index_challenges_on_puzzle_id"
   end
 
   create_table "plys", force: :cascade do |t|
@@ -38,7 +40,6 @@ ActiveRecord::Schema.define(version: 2020_02_08_001216) do
   end
 
   create_table "puzzles", force: :cascade do |t|
-    t.integer "challenge_ids", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -52,4 +53,5 @@ ActiveRecord::Schema.define(version: 2020_02_08_001216) do
   end
 
   add_foreign_key "challenges", "positions"
+  add_foreign_key "challenges", "puzzles"
 end

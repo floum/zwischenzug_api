@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::API
+  include ActionController::ImplicitRender # if you need render .jbuilder
+  include ActionView::Layouts # if you need layout for .jbuilder
+
   def authorize_request
     header = request.headers['Authorization']
     header = header.split(' ').last if header
