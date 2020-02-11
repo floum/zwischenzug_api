@@ -8,9 +8,24 @@ puzzles["puzzles"].each do |puzzle|
   puzzle_object = Puzzle.create()
   puzzle["challenges"].each do |challenge|
     position = Position.create(fen: challenge["fen"])
-    challenge["plys"].each do |ply|
-      Ply.create(san: ply, position: position)
+
+    expected_positions = challenge["expected_fens"].map do |fen|
+      Position.find_by(fen: fen) || Position.create(fen: fen)
     end
-    Challenge.create(position: position, puzzle: puzzle_object)
+
+    challenge_object = Challenge.create(
+      position: position,
+      expected_position_ids: expected_positions.map(&:id),
+      puzzle: puzzle_object
+    )
+
+    continuation_positions = challenge["continuation"].map do |fen|
+      Position.find_by(fen: fen) || Position.create(fen: fen)
+    end
+
+    Continuation.create(
+      challenge: challenge_object,
+      position_ids: continuation_positions.map(&:id)
+    )
   end
 end

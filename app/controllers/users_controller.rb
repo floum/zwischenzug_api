@@ -45,6 +45,7 @@ class UsersController < ApplicationController
 
   def practice
     @puzzle = Puzzle.first
+    render 'puzzles/show'
   end
 
   private

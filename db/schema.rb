@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_08_001216) do
+ActiveRecord::Schema.define(version: 2020_02_11_160559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,18 +19,19 @@ ActiveRecord::Schema.define(version: 2020_02_08_001216) do
     t.bigint "position_id", null: false
     t.bigint "puzzle_id", null: false
     t.string "last_move"
-    t.string "continuation", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "expected_position_ids", default: [], array: true
     t.index ["position_id"], name: "index_challenges_on_position_id"
     t.index ["puzzle_id"], name: "index_challenges_on_puzzle_id"
   end
 
-  create_table "plys", force: :cascade do |t|
-    t.string "san"
-    t.integer "position_id"
+  create_table "continuations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position_ids", default: [], array: true
+    t.bigint "challenge_id", null: false
+    t.index ["challenge_id"], name: "index_continuations_on_challenge_id"
   end
 
   create_table "positions", force: :cascade do |t|
@@ -54,4 +55,5 @@ ActiveRecord::Schema.define(version: 2020_02_08_001216) do
 
   add_foreign_key "challenges", "positions"
   add_foreign_key "challenges", "puzzles"
+  add_foreign_key "continuations", "challenges"
 end

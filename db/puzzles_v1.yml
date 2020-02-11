@@ -1,0 +1,19 @@
+  - challenges:
+    - fen: 'rnb1k2r/ppppbN1p/5n2/7Q/4P3/2N5/PPPP3P/R1B1KB1q w Qkq - 0 1'
+      plys: 
+        - Nd6+
+      continuation : Nd6+ Kd8
+    - fen: 'rnbk3r/ppppb2p/3N1n2/7Q/4P3/2N5/PPPP3P/R1B1KB1q w Q - 2 2'
+      plys: 
+        - Qe8+
+      continuation: Qe8 Rxe8 Nf7#
+  - challenges:
+    - fen: 'r1k4r/ppp1bq1p/2n1N3/6B1/3p2Q1/8/PPP2PPP/R5K1 w - - 0 1'
+      plys: 
+        - Nc5+
+        - Nf8+
+      continuation: Nc5+ Kb8 Nd7+ Kc8 Nb6+ Kb8
+    - fen: rk5r/ppp1bq1p/1Nn5/6B1/3p2Q1/8/PPP2PPP/R5K1 w - - 6 4
+      plys:
+        - Qc8+
+      continuation: Qc8+ Rxc8 Nd7#
