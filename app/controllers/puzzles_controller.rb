@@ -15,4 +15,11 @@ class PuzzlesController < ApplicationController
     puzzle.challenges = challenges
     puzzle.save
   end
+
+  def pgn
+    games = PGN.parse(params[:pgn])
+
+    p games.size
+    
+  end
 end

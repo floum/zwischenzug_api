@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def practice
-    @puzzle = Puzzle.first
+    @puzzle = Puzzle.last
     render 'puzzles/show'
   end
 

@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   post '/users/authenticate', to: 'users#authenticate'
   get '/practice', to: 'users#practice'
 
-  resources :puzzles, only: :create
+  post '/pgn', to: 'puzzles#pgn'
 end

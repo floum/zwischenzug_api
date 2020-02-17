@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:floum/pgn.git
+  revision: 5bcc19873a2dc85f5cb63b4522ab52d30990c14e
+  specs:
+    pgn (0.2.0)
+      whittle
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -165,6 +172,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    whittle (0.0.8)
     zeitwerk (2.2.2)
 
 PLATFORMS
@@ -179,6 +187,7 @@ DEPENDENCIES
   jwt
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
+  pgn!
   puma (~> 4.1)
   rack-cors
   rails (~> 6.0.2, >= 6.0.2.1)

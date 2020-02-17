@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_160559) do
+ActiveRecord::Schema.define(version: 2020_02_17_151659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2020_02_11_160559) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_attempts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "puzzle_id", null: false
+    t.boolean "success"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["puzzle_id"], name: "index_user_attempts_on_puzzle_id"
+    t.index ["user_id"], name: "index_user_attempts_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -56,4 +66,6 @@ ActiveRecord::Schema.define(version: 2020_02_11_160559) do
   add_foreign_key "challenges", "positions"
   add_foreign_key "challenges", "puzzles"
   add_foreign_key "continuations", "challenges"
+  add_foreign_key "user_attempts", "puzzles"
+  add_foreign_key "user_attempts", "users"
 end

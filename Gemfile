@@ -10,6 +10,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 
+gem 'pgn', git: 'git@github.com:floum/pgn.git'
+
 gem 'devise_token_auth'
 gem 'rack-cors', :require => 'rack/cors'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
