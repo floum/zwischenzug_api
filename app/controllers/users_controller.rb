@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def practice
-    @puzzle = Puzzle.last
+    @puzzle = Puzzle.order('RANDOM()').first
     render 'puzzles/show'
   end
 
