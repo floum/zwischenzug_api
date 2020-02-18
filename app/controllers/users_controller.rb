@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def practice
-    @puzzle = Puzzle.order('RANDOM()').first
+    @puzzle = Puzzle.find { |puzzle| puzzle.challenges.size > 1 }
     render 'puzzles/show'
   end
 
