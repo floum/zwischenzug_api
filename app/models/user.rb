@@ -4,4 +4,8 @@ class User < ApplicationRecord
   validates :password,
     length: { minimum: 4 },
     if: -> { new_record? || !password.nil? }
+
+  def planned_puzzles
+    Puzzle.where(id: planned_pgn_ids).to_a << Puzzle.random
+  end
 end

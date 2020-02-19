@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def practice
-    @puzzle = Puzzle.find { |puzzle| puzzle.challenges.size > 1 }
+    @puzzle = @current_user.planned_puzzles.first
     render 'puzzles/show'
   end
 
