@@ -6,21 +6,25 @@ class User < ApplicationRecord
     if: -> { new_record? || !password.nil? }
 
   def planned_puzzles
-    if planned_puzzle_ids.empty?
-      plan_puzzle(Puzzle.random)
+    if planned_puzzle_ids.size < 5
+      plan_puzzles(Puzzle.random(5))
     end
-    Puzzle.where(id: planned_puzzle_ids).to_a
+    planned_puzzle_ids.map { |id| Puzzle.find(id) }
   end
 
   def plan_puzzle(puzzle)
-    planned_puzzle_ids << puzzle.id
+    plan_puzzles([puzzle])
+  end
+
+  def plan_puzzles(puzzles)
+    puzzles.map(&:id).each do |puzzle_id|
+      planned_puzzle_ids << puzzle_id
+    end
     save
   end
 
   def unplan_puzzle(puzzle)
-    if planned_puzzle_ids.first == puzzle.id
-      planned_puzzle_ids.shift
-    end
+    planned_puzzle_ids.delete(puzzle.id)
     save
   end
 end
