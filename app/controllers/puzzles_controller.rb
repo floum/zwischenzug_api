@@ -1,4 +1,7 @@
 class PuzzlesController < ApplicationController
+
+  STARTING_POSITION_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+
   def create
     puzzle = Puzzle.new
 
@@ -21,6 +24,8 @@ class PuzzlesController < ApplicationController
 
     games.each do |game|
       puzzle = Puzzle.new
+      next if game.positions.first.to_fen == STARTING_POSITION_FEN
+
       challenges = game.positions.map(&:to_fen).each_slice(2).map do |fen1, fen2|
         starting_position = Position.create(fen: fen1)
         expected_position = Position.create(fen: fen2)
