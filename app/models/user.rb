@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  PLAN_SIZE = 10
+
   has_secure_password
   validates :username, presence: true, uniqueness: true
   validates :password,
@@ -6,8 +8,8 @@ class User < ApplicationRecord
     if: -> { new_record? || !password.nil? }
 
   def planned_puzzles
-    if planned_puzzle_ids.size < 5
-      plan_puzzles(Puzzle.random(5))
+    if planned_puzzle_ids.size < PLAN_SIZE
+      plan_puzzles(Puzzle.random(PLAN_SIZE))
     end
     planned_puzzle_ids.map { |id| Puzzle.find(id) }
   end
@@ -25,6 +27,11 @@ class User < ApplicationRecord
 
   def unplan_puzzle(puzzle)
     planned_puzzle_ids.delete(puzzle.id)
+    save
+  end
+
+  def unplan_all
+    self.planned_puzzle_ids = []
     save
   end
 end
