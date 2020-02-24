@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users, param: :_username
-  resources :puzzle_attempts, only: :create
+  resources :user_puzzles, only: :create
 
   post '/users/authenticate', to: 'users#authenticate'
   get '/practice', to: 'users#practice'

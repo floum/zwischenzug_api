@@ -45,14 +45,14 @@ ActiveRecord::Schema.define(version: 2020_02_19_160139) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_attempts", force: :cascade do |t|
+  create_table "user_puzzles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "puzzle_id", null: false
     t.boolean "success"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["puzzle_id"], name: "index_user_attempts_on_puzzle_id"
-    t.index ["user_id"], name: "index_user_attempts_on_user_id"
+    t.index ["puzzle_id"], name: "index_user_puzzles_on_puzzle_id"
+    t.index ["user_id"], name: "index_user_puzzles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,6 +67,6 @@ ActiveRecord::Schema.define(version: 2020_02_19_160139) do
   add_foreign_key "challenges", "positions"
   add_foreign_key "challenges", "puzzles"
   add_foreign_key "continuations", "challenges"
-  add_foreign_key "user_attempts", "puzzles"
-  add_foreign_key "user_attempts", "users"
+  add_foreign_key "user_puzzles", "puzzles"
+  add_foreign_key "user_puzzles", "users"
 end
