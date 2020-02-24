@@ -23,8 +23,12 @@ class PuzzlesController < ApplicationController
     games = PGN.parse(params[:pgn])
 
     games.each do |game|
+      if game.positions.first.to_fen.to_s == STARTING_POSITION_FEN
+        p 'SKIPPING FULL GAME'
+        next
+      end
+
       puzzle = Puzzle.new
-      next if game.positions.first.to_fen == STARTING_POSITION_FEN
 
       challenges = game.positions.map(&:to_fen).each_slice(2).map do |fen1, fen2|
         starting_position = Position.create(fen: fen1)
